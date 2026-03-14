@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HyperCare — Asisten Virtual Hipertensi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --teal-50: #E1F5EE;
+      --teal-100: #9FE1CB;
+      --teal-400: #1D9E75;
+      --teal-600: #0F6E56;
+      --teal-900: #04342C;
+      --red-100: #F7C1C1;
+      --red-400: #E24B4A;
+      --amber-100: #FAC775;
+      --amber-400: #BA7517;
+      --gray-50: #F8F7F4;
+      --gray-100: #EDECEA;
+      --gray-200: #D3D1C7;
+      --gray-400: #888780;
+      --gray-700: #444441;
+      --gray-900: #1A1A18;
+      --white: #FFFFFF;
+      --font-display: 'DM Serif Display', Georgia, serif;
+      --font-body: 'DM Sans', system-ui, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--gray-50);
+      color: var(--gray-900);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── LANDING PAGE ── */
+    #landing {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .landing-nav {
+      padding: 20px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      animation: fadeDown 0.6s ease both;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-icon {
+      width: 36px;
+      height: 36px;
+      background: var(--teal-400);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-icon svg { width: 20px; height: 20px; stroke: white; fill: none; }
+
+    .logo-text {
+      font-family: var(--font-display);
+      font-size: 22px;
+      color: var(--gray-900);
+      letter-spacing: -0.02em;
+    }
+
+    .logo-text span { color: var(--teal-400); }
+
+    .nav-badge {
+      background: var(--teal-50);
+      border: 1px solid var(--teal-100);
+      color: var(--teal-600);
+      font-size: 12px;
+      font-weight: 500;
+      padding: 5px 14px;
+      border-radius: 99px;
+    }
+
+    .hero {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 60px 48px 80px;
+      align-items: center;
+    }
+
+    .hero-left { padding-right: 60px; }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--teal-600);
+      background: var(--teal-50);
+      border: 1px solid var(--teal-100);
+      border-radius: 99px;
+      padding: 5px 12px;
+      margin-bottom: 24px;
+      animation: fadeUp 0.7s ease both;
+    }
+
+    .tag-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--teal-400); }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: 56px;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      color: var(--gray-900);
+      margin-bottom: 20px;
+      animation: fadeUp 0.7s 0.1s ease both;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--teal-400);
+    }
+
+    .hero-desc {
+      font-size: 17px;
+      line-height: 1.7;
+      color: var(--gray-400);
+      font-weight: 300;
+      margin-bottom: 36px;
+      animation: fadeUp 0.7s 0.2s ease both;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      animation: fadeUp 0.7s 0.3s ease both;
+    }
+
+    .btn-primary {
+      padding: 14px 28px;
+      background: var(--teal-400);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-primary:hover { background: var(--teal-600); transform: translateY(-1px); }
+    .btn-primary:active { transform: translateY(0); }
+
+    .btn-secondary {
+      padding: 14px 24px;
+      background: transparent;
+      color: var(--gray-700);
+      border: 1px solid var(--gray-200);
+      border-radius: 12px;
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .btn-secondary:hover { border-color: var(--teal-400); color: var(--teal-600); }
+
+    .hero-stats {
+      display: flex;
+      gap: 32px;
+      margin-top: 48px;
+      padding-top: 40px;
+      border-top: 1px solid var(--gray-100);
+      animation: fadeUp 0.7s 0.4s ease both;
+    }
+
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: 28px;
+      color: var(--gray-900);
+      letter-spacing: -0.02em;
+    }
+
+    .stat-label { font-size: 13px; color: var(--gray-400); margin-top: 2px; }
+
+    .hero-right {
+      position: relative;
+      animation: fadeLeft 0.8s 0.2s ease both;
+    }
+
+    .phone-frame {
+      width: 320px;
+      margin: 0 auto;
+      background: var(--white);
+      border-radius: 40px;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.12), 0 8px 24px rgba(0,0,0,0.06);
+      overflow: hidden;
+      border: 8px solid var(--gray-900);
+      position: relative;
+    }
+
+    .phone-notch {
+      height: 28px;
+      background: var(--gray-900);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .notch-pill { width: 80px; height: 8px; background: #2a2a28; border-radius: 99px; }
+
+    .phone-screen { background: var(--gray-50); }
+
+    .phone-header {
+      background: var(--white);
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid var(--gray-100);
+    }
+
+    .phone-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--teal-50);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--teal-600);
+    }
+
+    .phone-name { font-size: 13px; font-weight: 500; }
+    .phone-status { font-size: 10px; color: var(--teal-400); display: flex; align-items: center; gap: 4px; }
+    .status-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--teal-400); }
+
+    .phone-msgs { padding: 12px; display: flex; flex-direction: column; gap: 8px; min-height: 340px; }
+
+    .pmsg { max-width: 80%; }
+    .pmsg.bot { align-self: flex-start; }
+    .pmsg.user { align-self: flex-end; }
+
+    .pmsg-bubble {
+      padding: 9px 12px;
+      border-radius: 14px;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .pmsg.bot .pmsg-bubble {
+      background: var(--white);
+      border: 1px solid var(--gray-100);
+      border-bottom-left-radius: 4px;
+      color: var(--gray-900);
+    }
+
+    .pmsg.user .pmsg-bubble {
+      background: var(--teal-400);
+      color: white;
+      border-bottom-right-radius: 4px;
+    }
+
+    .pmsg-card {
+      background: var(--white);
+      border: 1px solid var(--gray-100);
+      border-radius: 12px;
+      padding: 10px 12px;
+      margin-top: 4px;
+      font-size: 11px;
+    }
+
+    .pmsg-card-title { font-size: 10px; color: var(--gray-400); margin-bottom: 6px; }
+
+    .bp-row { display: flex; gap: 8px; }
+    .bp-chip {
+      flex: 1;
+      text-align: center;
+      padding: 6px 4px;
+      border-radius: 8px;
+      background: var(--gray-50);
+    }
+    .bp-chip.danger { background: #FFF0F0; }
+    .bp-chip.warn { background: #FFFBF0; }
+    .bp-chip-val { font-size: 16px; font-weight: 600; }
+    .bp-chip.danger .bp-chip-val { color: var(--red-400); }
+    .bp-chip.warn .bp-chip-val { color: var(--amber-400); }
+    .bp-chip-lbl { font-size: 9px; color: var(--gray-400); margin-top: 1px; }
+
+    .float-card {
+      position: absolute;
+      background: var(--white);
+      border-radius: 16px;
+      padding: 14px 16px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+      font-size: 12px;
+    }
+
+    .float-card.top-right {
+      top: 20px;
+      right: -50px;
+      width: 150px;
+      animation: floatY 4s ease-in-out infinite;
+    }
+
+    .float-card.bottom-left {
+      bottom: 60px;
+      left: -40px;
+      width: 140px;
+      animation: floatY 4s 2s ease-in-out infinite;
+    }
+
+    .float-title { font-size: 10px; color: var(--gray-400); margin-bottom: 8px; }
+    .float-val { font-family: var(--font-display); font-size: 20px; color: var(--gray-900); }
+    .float-sub { font-size: 10px; color: var(--teal-400); margin-top: 2px; }
+
+    .float-bar { height: 4px; border-radius: 99px; background: var(--gray-100); margin-top: 8px; overflow: hidden; }
+    .float-bar-fill { height: 100%; background: var(--teal-400); border-radius: 99px; }
+
+    .features-section {
+      background: var(--white);
+      padding: 80px 48px;
+      border-top: 1px solid var(--gray-100);
+    }
+
+    .features-header { text-align: center; margin-bottom: 56px; }
+
+    .section-tag {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--teal-600);
+      background: var(--teal-50);
+      padding: 4px 14px;
+      border-radius: 99px;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 36px;
+      letter-spacing: -0.02em;
+      color: var(--gray-900);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .feature-card {
+      padding: 28px;
+      border-radius: 20px;
+      border: 1px solid var(--gray-100);
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .feature-card:hover { border-color: var(--teal-100); transform: translateY(-3px); }
+
+    .feature-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: var(--teal-50);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+
+    .feature-icon svg { width: 22px; height: 22px; stroke: var(--teal-400); fill: none; stroke-width: 1.8; }
+
+    .feature-title { font-weight: 600; font-size: 16px; margin-bottom: 8px; }
+    .feature-desc { font-size: 14px; line-height: 1.6; color: var(--gray-400); font-weight: 300; }
+
+    /* ── APP PAGE ── */
+    #app { display: none; min-height: 100vh; flex-direction: column; }
+    #app.active { display: flex; }
+
+    .app-nav {
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-100);
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      height: 60px;
+      gap: 16px;
+    }
+
+    .app-nav .logo-text { font-size: 18px; }
+
+    .back-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--gray-400);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-body);
+      font-size: 14px;
+      padding: 6px 8px;
+      border-radius: 8px;
+      transition: background 0.15s;
+    }
+
+    .back-btn:hover { background: var(--gray-50); }
+
+    .app-body {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 280px 1fr 300px;
+      overflow: hidden;
+      height: calc(100vh - 60px);
+    }
+
+    /* Sidebar */
+    .sidebar {
+      background: var(--white);
+      border-right: 1px solid var(--gray-100);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .sidebar-top {
+      padding: 20px 16px 12px;
+      border-bottom: 1px solid var(--gray-100);
+    }
+
+    .sidebar-label { font-size: 11px; font-weight: 600; color: var(--gray-400); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px; }
+
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid var(--gray-100);
+      border-radius: 10px;
+      font-family: var(--font-body);
+      font-size: 13px;
+      color: var(--gray-900);
+      background: var(--gray-50);
+      outline: none;
+    }
+
+    .search-input:focus { border-color: var(--teal-100); background: var(--white); }
+
+    .patient-list { flex: 1; overflow-y: auto; padding: 8px; }
+
+    .patient-item {
+      padding: 12px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 2px;
+    }
+
+    .patient-item:hover { background: var(--gray-50); }
+    .patient-item.active { background: var(--teal-50); }
+
+    .p-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    .p-name { font-size: 14px; font-weight: 500; color: var(--gray-900); }
+    .p-preview { font-size: 12px; color: var(--gray-400); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 140px; }
+    .p-date { font-size: 10px; color: var(--gray-400); margin-left: auto; flex-shrink: 0; }
+
+    .risk-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 99px;
+      font-size: 10px;
+      font-weight: 500;
+    }
+
+    .risk-high { background: #FFF0F0; color: var(--red-400); }
+    .risk-med { background: #FFFBF0; color: var(--amber-400); }
+    .risk-low { background: var(--teal-50); color: var(--teal-600); }
+
+    /* Chat */
+    .chat-col {
+      display: flex;
+      flex-direction: column;
+      background: var(--gray-50);
+      overflow: hidden;
+    }
+
+    .chat-top {
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-100);
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .chat-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--teal-50);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--teal-600);
+    }
+
+    .chat-patient-name { font-size: 15px; font-weight: 600; }
+    .chat-status { font-size: 12px; color: var(--teal-400); display: flex; align-items: center; gap: 4px; margin-top: 2px; }
+
+    .chat-actions { margin-left: auto; display: flex; gap: 8px; }
+
+    .icon-btn {
+      width: 34px;
+      height: 34px;
+      border: 1px solid var(--gray-100);
+      border-radius: 8px;
+      background: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s;
+    }
+
+    .icon-btn:hover { background: var(--gray-50); }
+    .icon-btn svg { width: 16px; height: 16px; stroke: var(--gray-400); fill: none; stroke-width: 1.8; }
+
+    .messages { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 16px; }
+
+    .msg-group { display: flex; flex-direction: column; }
+    .msg-group.user { align-items: flex-end; }
+    .msg-group.bot { align-items: flex-start; }
+
+    .msg-row { display: flex; align-items: flex-end; gap: 8px; }
+    .msg-group.user .msg-row { flex-direction: row-reverse; }
+
+    .bot-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--teal-50);
+      border: 1px solid var(--teal-100);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--teal-600);
+      flex-shrink: 0;
+    }
+
+    .bubble {
+      max-width: 420px;
+      padding: 11px 15px;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .bot .bubble {
+      background: var(--white);
+      border: 1px solid var(--gray-100);
+      border-radius: 16px 16px 16px 4px;
+      color: var(--gray-900);
+    }
+
+    .user .bubble {
+      background: var(--teal-400);
+      color: white;
+      border-radius: 16px 16px 4px 16px;
+    }
+
+    .msg-time { font-size: 10px; color: var(--gray-200); margin-top: 4px; }
+    .msg-group.bot .msg-time { margin-left: 36px; }
+    .msg-group.user .msg-time { text-align: right; }
+
+    .info-card {
+      background: var(--white);
+      border: 1px solid var(--gray-100);
+      border-radius: 14px;
+      padding: 14px 16px;
+      margin-top: 6px;
+      max-width: 320px;
+      margin-left: 36px;
+    }
+
+    .info-card-title {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--gray-400);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 12px;
+    }
+
+    .bp-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+
+    .bp-cell { text-align: center; padding: 10px 8px; border-radius: 10px; background: var(--gray-50); }
+    .bp-cell.danger { background: #FFF0F0; }
+    .bp-cell.warn { background: #FFFBF0; }
+    .bp-cell.ok { background: var(--teal-50); }
+
+    .bp-val { font-size: 22px; font-weight: 600; line-height: 1; }
+    .bp-cell.danger .bp-val { color: var(--red-400); }
+    .bp-cell.warn .bp-val { color: var(--amber-400); }
+    .bp-cell.ok .bp-val { color: var(--teal-400); }
+    .bp-lbl { font-size: 10px; color: var(--gray-400); margin-top: 4px; }
+
+    .list-bubble { list-style: none; padding: 0; }
+    .list-bubble li { display: flex; gap: 8px; padding: 4px 0; font-size: 14px; line-height: 1.5; }
+    .list-bubble li::before { content: "•"; color: var(--teal-400); font-weight: bold; flex-shrink: 0; }
+
+    .chips-row { display: flex; gap: 8px; flex-wrap: wrap; padding: 8px 20px 4px; }
+    .chip {
+      padding: 6px 14px;
+      border-radius: 99px;
+      border: 1px solid var(--gray-200);
+      font-size: 13px;
+      color: var(--gray-700);
+      background: var(--white);
+      cursor: pointer;
+      font-family: var(--font-body);
+      transition: all 0.15s;
+    }
+    .chip:hover { border-color: var(--teal-400); color: var(--teal-600); background: var(--teal-50); }
+
+    .input-row {
+      padding: 12px 20px 20px;
+      display: flex;
+      gap: 10px;
+      align-items: flex-end;
+      background: var(--white);
+      border-top: 1px solid var(--gray-100);
+    }
+
+    .msg-input {
+      flex: 1;
+      padding: 11px 16px;
+      border: 1px solid var(--gray-200);
+      border-radius: 14px;
+      font-family: var(--font-body);
+      font-size: 14px;
+      color: var(--gray-900);
+      background: var(--gray-50);
+      resize: none;
+      outline: none;
+      height: 44px;
+      max-height: 100px;
+      line-height: 1.4;
+    }
+
+    .msg-input:focus { border-color: var(--teal-100); background: var(--white); }
+
+    .send-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      border: none;
+      background: var(--teal-400);
+      color: white;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.15s, transform 0.1s;
+    }
+
+    .send-btn:hover { background: var(--teal-600); }
+    .send-btn:active { transform: scale(0.95); }
+    .send-btn svg { width: 18px; height: 18px; stroke: white; fill: none; stroke-width: 2; }
+
+    /* Right Panel */
+    .right-panel {
+      background: var(--white);
+      border-left: 1px solid var(--gray-100);
+      overflow-y: auto;
+      padding: 20px;
+    }
+
+    .panel-section { margin-bottom: 24px; }
+    .panel-section-title { font-size: 12px; font-weight: 600; color: var(--gray-400); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 12px; }
+
+    .profile-card {
+      text-align: center;
+      padding: 20px;
+      background: var(--gray-50);
+      border-radius: 16px;
+      margin-bottom: 20px;
+    }
+
+    .profile-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      margin: 0 auto 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    .profile-name { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+    .profile-meta { font-size: 13px; color: var(--gray-400); }
+
+    .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+    .stat-card {
+      background: var(--gray-50);
+      border-radius: 12px;
+      padding: 12px;
+    }
+
+    .stat-label { font-size: 11px; color: var(--gray-400); margin-bottom: 4px; }
+    .stat-val { font-size: 18px; font-weight: 600; color: var(--gray-900); }
+    .stat-unit { font-size: 11px; color: var(--gray-400); }
+
+    .history-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--gray-100);
+      margin-bottom: 8px;
+    }
+
+    .history-date { font-size: 11px; color: var(--gray-400); min-width: 50px; }
+    .history-bp { font-size: 14px; font-weight: 600; }
+    .history-bp.danger { color: var(--red-400); }
+    .history-bp.warn { color: var(--amber-400); }
+    .history-bp.ok { color: var(--teal-400); }
+    .history-note { font-size: 11px; color: var(--gray-400); margin-left: auto; }
+
+    .typing-indicator {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 20px;
+    }
+
+    .typing-dots { display: flex; gap: 4px; padding: 10px 15px; background: var(--white); border: 1px solid var(--gray-100); border-radius: 16px 16px 16px 4px; }
+    .typing-dots span { width: 6px; height: 6px; border-radius: 50%; background: var(--gray-200); animation: dotBounce 1.2s infinite; }
+    .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+    /* Animations */
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeLeft { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
+    @keyframes floatY { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+    @keyframes dotBounce { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-6px); } }
+    @keyframes slideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+    .msg-new { animation: slideIn 0.3s ease both; }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--gray-200); border-radius: 99px; }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════ LANDING PAGE ════════════════ -->
+<div id="landing">
+  <nav class="landing-nav">
+    <div class="logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+      </div>
+      <span class="logo-text">Hyper<span>Care</span></span>
+    </div>
+    <span class="nav-badge">Prototype v1.0</span>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-left">
+      <div class="hero-tag"><span class="tag-dot"></span> Asisten Virtual Berbasis AI</div>
+      <h1 class="hero-title">Pantau <em>tekanan darah</em> lebih cerdas</h1>
+      <p class="hero-desc">HyperCare membantu tenaga kesehatan memantau pasien hipertensi secara real-time dengan dukungan AI percakapan untuk konsultasi yang lebih efisien.</p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="openApp()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+          Coba Demo
+        </button>
+        <button class="btn-secondary">Lihat Fitur</button>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="stat-num">98%</div>
+          <div class="stat-label">Akurasi klasifikasi</div>
+        </div>
+        <div>
+          <div class="stat-num">2.4s</div>
+          <div class="stat-label">Respons rata-rata</div>
+        </div>
+        <div>
+          <div class="stat-num">5+</div>
+          <div class="stat-label">Kategori diagnosis</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="phone-frame">
+        <div class="phone-notch"><div class="notch-pill"></div></div>
+        <div class="phone-screen">
+          <div class="phone-header">
+            <div class="phone-avatar">HC</div>
+            <div>
+              <div class="phone-name">HyperCare AI</div>
+              <div class="phone-status"><span class="status-dot"></span> Online</div>
+            </div>
+          </div>
+          <div class="phone-msgs">
+            <div class="pmsg bot"><div class="pmsg-bubble">Halo! Ada yang bisa saya bantu seputar hipertensi Anda? 😊</div></div>
+            <div class="pmsg user"><div class="pmsg-bubble">Tensi saya tadi 158/96 mmHg</div></div>
+            <div class="pmsg bot">
+              <div class="pmsg-bubble">Nilai tersebut termasuk <strong>Hipertensi Stadium 2</strong>. Berikut ringkasannya:</div>
+              <div class="pmsg-card">
+                <div class="pmsg-card-title">Hasil Pengukuran</div>
+                <div class="bp-row">
+                  <div class="bp-chip danger"><div class="bp-chip-val">158</div><div class="bp-chip-lbl">Sistolik</div></div>
+                  <div class="bp-chip danger"><div class="bp-chip-val">96</div><div class="bp-chip-lbl">Diastolik</div></div>
+                  <div class="bp-chip warn"><div class="bp-chip-val">Std.2</div><div class="bp-chip-lbl">Kategori</div></div>
+                </div>
+              </div>
+            </div>
+            <div class="pmsg user"><div class="pmsg-bubble">Apa yang harus saya lakukan?</div></div>
+            <div class="pmsg bot"><div class="pmsg-bubble">Segera konsultasi ke dokter dan kurangi konsumsi garam. Saya bisa bantu informasi lebih lanjut 🌿</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="float-card top-right">
+        <div class="float-title">Pasien aktif hari ini</div>
+        <div class="float-val">142</div>
+        <div class="float-sub">+12 dari kemarin</div>
+        <div class="float-bar"><div class="float-bar-fill" style="width: 72%"></div></div>
+      </div>
+
+      <div class="float-card bottom-left">
+        <div class="float-title">Risiko tinggi</div>
+        <div class="float-val" style="color: var(--red-400)">23</div>
+        <div class="float-sub" style="color: var(--gray-400)">Perlu tindak lanjut</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="features-section">
+    <div class="features-header">
+      <div class="section-tag">Fitur Utama</div>
+      <h2 class="section-title">Dirancang untuk tenaga kesehatan</h2>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        </div>
+        <div class="feature-title">Klasifikasi Otomatis</div>
+        <div class="feature-desc">Sistem mengklasifikasikan nilai tekanan darah secara otomatis ke dalam 5 kategori sesuai panduan JNC 8 dan ACC/AHA.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <div class="feature-title">Konsultasi Percakapan</div>
+        <div class="feature-desc">Pasien dapat berkonsultasi menggunakan bahasa natural. AI memproses pertanyaan dan memberikan panduan berbasis evidence.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div class="feature-title">Riwayat & Tren</div>
+        <div class="feature-desc">Monitor tren tekanan darah pasien dari waktu ke waktu dengan visualisasi yang mudah dipahami oleh tenaga medis.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div class="feature-title">Manajemen Pasien</div>
+        <div class="feature-desc">Kelola daftar pasien, lacak status risiko, dan prioritaskan pasien yang membutuhkan perhatian segera.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <div class="feature-title">Rekomendasi Gaya Hidup</div>
+        <div class="feature-desc">Memberikan saran diet DASH, olahraga, dan modifikasi gaya hidup yang dipersonalisasi berdasarkan kondisi pasien.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><path d="M3 9h18M3 15h18M9 3v18"/></svg>
+        </div>
+        <div class="feature-title">Laporan Terstruktur</div>
+        <div class="feature-desc">Ekspor ringkasan kondisi pasien dalam format terstruktur untuk mendukung rekam medis dan rujukan dokter.</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ════════════════ APP PAGE ════════════════ -->
+<div id="app">
+  <nav class="app-nav">
+    <button class="back-btn" onclick="backToLanding()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+      Kembali
+    </button>
+    <div style="width:1px; height:20px; background: var(--gray-200);"></div>
+    <div class="logo">
+      <div class="logo-icon" style="width:28px; height:28px; border-radius:8px;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" width="14" height="14"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+      </div>
+      <span class="logo-text" style="font-size:16px;">Hyper<span>Care</span></span>
+    </div>
+    <span style="font-size:12px; color:var(--gray-400); margin-left:8px;">Demo Mode</span>
+  </nav>
+
+  <div class="app-body">
+    <!-- Patient List -->
+    <div class="sidebar">
+      <div class="sidebar-top">
+        <div class="sidebar-label">Daftar Pasien</div>
+        <input class="search-input" type="text" placeholder="Cari pasien..." />
+      </div>
+      <div class="patient-list" id="patientList"></div>
+    </div>
+
+    <!-- Chat -->
+    <div class="chat-col">
+      <div class="chat-top">
+        <div class="chat-avatar" id="chatAvatar">BS</div>
+        <div>
+          <div class="chat-patient-name" id="chatPatientName">Budi Santoso</div>
+          <div class="chat-status"><span class="status-dot"></span> Aktif sekarang</div>
+        </div>
+        <div class="chat-actions">
+          <button class="icon-btn" title="Informasi pasien">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          </button>
+          <button class="icon-btn" title="Hapus percakapan">
+            <svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="messages" id="messages"></div>
+
+      <div class="chips-row" id="chipsRow">
+        <button class="chip" onclick="sendChip(this)">Berapa tensi normal?</button>
+        <button class="chip" onclick="sendChip(this)">Makanan yang harus dihindari</button>
+        <button class="chip" onclick="sendChip(this)">Kapan ke dokter?</button>
+        <button class="chip" onclick="sendChip(this)">Obat hipertensi umum</button>
+      </div>
+
+      <div class="input-row">
+        <textarea class="msg-input" id="msgInput" placeholder="Ketik pertanyaan atau masukkan hasil tensi (cth: 140/90)…" rows="1" onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
+        <button class="send-btn" onclick="sendMessage()">
+          <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Right Panel -->
+    <div class="right-panel">
+      <div class="profile-card">
+        <div class="profile-avatar" id="panelAvatar" style="background: var(--teal-50); color: var(--teal-600);">BS</div>
+        <div class="profile-name" id="panelName">Budi Santoso</div>
+        <div class="profile-meta" id="panelMeta">Laki-laki · 54 tahun</div>
+        <div style="margin-top:10px;"><span class="risk-badge risk-high" id="panelRisk">Risiko Tinggi</span></div>
+      </div>
+
+      <div class="panel-section">
+        <div class="panel-section-title">Data Klinis</div>
+        <div class="stat-grid">
+          <div class="stat-card">
+            <div class="stat-label">Tensi Terakhir</div>
+            <div class="stat-val" id="panelBP">158/96</div>
+            <div class="stat-unit">mmHg</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Nadi</div>
+            <div class="stat-val" id="panelPulse">82</div>
+            <div class="stat-unit">bpm</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">BMI</div>
+            <div class="stat-val" id="panelBMI">27.4</div>
+            <div class="stat-unit">kg/m²</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Konsultasi</div>
+            <div class="stat-val" id="panelSessions">12</div>
+            <div class="stat-unit">total</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel-section">
+        <div class="panel-section-title">Riwayat Tekanan Darah</div>
+        <div id="bpHistory"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const patients = [
+    { id:1, initials:"BS", name:"Budi Santoso", gender:"Laki-laki", age:54, preview:"Tensi 158/96 mmHg tadi pagi", date:"Hari ini", risk:"high", riskLabel:"Risiko Tinggi", bp:"158/96", pulse:82, bmi:27.4, sessions:12,
+      color: "background:#E1F5EE; color:#0F6E56",
+      history: [{d:"12 Mar",bp:"158/96",cls:"danger"},{d:"10 Mar",bp:"162/98",cls:"danger"},{d:"7 Mar",bp:"150/92",cls:"warn"},{d:"3 Mar",bp:"145/88",cls:"warn"},{d:"28 Feb",bp:"138/85",cls:"ok"}] },
+    { id:2, initials:"SR", name:"Siti Rahayu", gender:"Perempuan", age:48, preview:"Efek samping amlodipin?", date:"Kemarin", risk:"med", riskLabel:"Risiko Sedang", bp:"138/88", pulse:76, bmi:24.1, sessions:8,
+      color: "background:#FFFBF0; color:#854F0B",
+      history: [{d:"11 Mar",bp:"138/88",cls:"warn"},{d:"9 Mar",bp:"140/90",cls:"danger"},{d:"5 Mar",bp:"135/86",cls:"warn"},{d:"1 Mar",bp:"130/82",cls:"ok"},{d:"25 Feb",bp:"128/80",cls:"ok"}] },
+    { id:3, initials:"AF", name:"Ahmad Fauzi", gender:"Laki-laki", age:61, preview:"Pusing dan mual sejak kemarin", date:"11 Mar", risk:"high", riskLabel:"Risiko Tinggi", bp:"172/104", pulse:88, bmi:29.8, sessions:19,
+      color: "background:#FCEBEB; color:#A32D2D",
+      history: [{d:"10 Mar",bp:"172/104",cls:"danger"},{d:"8 Mar",bp:"168/100",cls:"danger"},{d:"5 Mar",bp:"175/108",cls:"danger"},{d:"2 Mar",bp:"160/96",cls:"danger"},{d:"27 Feb",bp:"155/94",cls:"danger"}] },
+    { id:4, initials:"DP", name:"Dewi Putri", gender:"Perempuan", age:43, preview:"Diet DASH sudah dijalankan", date:"10 Mar", risk:"low", riskLabel:"Terkontrol", bp:"122/78", pulse:70, bmi:22.3, sessions:5,
+      color: "background:#E1F5EE; color:#0F6E56",
+      history: [{d:"9 Mar",bp:"122/78",cls:"ok"},{d:"7 Mar",bp:"126/80",cls:"ok"},{d:"4 Mar",bp:"124/79",cls:"ok"},{d:"1 Mar",bp:"130/84",cls:"ok"},{d:"26 Feb",bp:"128/82",cls:"ok"}] },
+    { id:5, initials:"RH", name:"Rizky Halim", gender:"Laki-laki", age:37, preview:"Mau tanya soal olahraga", date:"9 Mar", risk:"med", riskLabel:"Risiko Sedang", bp:"134/86", pulse:79, bmi:26.0, sessions:3,
+      color: "background:#FFFBF0; color:#854F0B",
+      history: [{d:"8 Mar",bp:"134/86",cls:"warn"},{d:"5 Mar",bp:"136/88",cls:"warn"},{d:"2 Mar",bp:"132/84",cls:"warn"},{d:"27 Feb",bp:"130/82",cls:"ok"},{d:"22 Feb",bp:"128/80",cls:"ok"}] },
+  ];
+
+  const chatHistories = {
+    1: [
+      {role:"bot", text:"Halo, Pak Budi! Saya HyperCare AI. Apa yang bisa saya bantu hari ini?", time:"09:00"},
+      {role:"user", text:"Tensi saya tadi pagi 158/96. Gimana nih?", time:"09:02"},
+      {role:"bot", text:"Nilai 158/96 mmHg termasuk kategori Hipertensi Stadium 2.", time:"09:02", type:"bp", bpData:{sys:158, dia:96, cat:"Stadium 2", clsSys:"danger", clsDia:"danger", clsCat:"warn"}},
+      {role:"bot", text:"Berikut beberapa langkah yang perlu segera dilakukan:", time:"09:02", type:"list", items:["Konsultasi langsung ke dokter untuk evaluasi dan penyesuaian obat","Kurangi konsumsi garam hingga di bawah 1 sendok teh per hari","Istirahat cukup dan hindari stres berlebihan","Pantau tensi dua kali sehari — pagi dan malam"]},
+      {role:"user", text:"Obat apa yang biasanya dikasih dokter?", time:"09:05"},
+      {role:"bot", text:"Untuk Hipertensi Stadium 2, dokter umumnya meresepkan kombinasi dua obat, misalnya: golongan ACE inhibitor (captopril, lisinopril) dikombinasikan dengan CCB (amlodipin) atau diuretik (HCT). Dosis dan pilihan obat sangat bergantung pada kondisi individual, jadi tetap harus melalui pemeriksaan dokter ya, Pak.", time:"09:05"},
+    ],
+    2: [
+      {role:"bot", text:"Halo, Bu Siti! Ada yang bisa saya bantu?", time:"10:15"},
+      {role:"user", text:"Saya sudah minum amlodipin 3 hari, tapi kaki saya sedikit bengkak. Itu normal?", time:"10:17"},
+      {role:"bot", text:"Edema (pembengkakan) pada pergelangan kaki adalah efek samping yang umum dari amlodipin, terjadi pada sekitar 10-30% pasien. Ini disebabkan oleh dilatasi pembuluh darah perifer.", time:"10:17"},
+      {role:"bot", text:"Yang bisa dilakukan:", time:"10:18", type:"list", items:["Angkat kaki saat istirahat atau tidur","Kurangi duduk/berdiri terlalu lama","Informasikan ke dokter saat kontrol — mungkin perlu penyesuaian dosis","Jangan hentikan obat tanpa seizin dokter"]},
+      {role:"user", text:"Oke terima kasih. Tensi saya hari ini 138/88", time:"10:20"},
+      {role:"bot", text:"Tensi 138/88 mmHg masuk kategori Hipertensi Stadium 1 — ada perbaikan dibanding pengukuran sebelumnya!", time:"10:20", type:"bp", bpData:{sys:138, dia:88, cat:"Stadium 1", clsSys:"warn", clsDia:"warn", clsCat:"warn"}},
+    ],
+    3: [
+      {role:"bot", text:"Halo, Pak Ahmad. Saya terima laporan Anda. Ada yang ingin dikonsultasikan?", time:"08:30"},
+      {role:"user", text:"Kepala saya pusing berat dan mual sejak kemarin malam", time:"08:32"},
+      {role:"bot", text:"⚠️ Gejala yang Bapak alami — pusing berat dan mual — bisa menjadi tanda krisis hipertensi, terutama mengingat riwayat tensi Bapak yang tinggi. Ini memerlukan penanganan segera.", time:"08:32", type:"list", items:["SEGERA periksakan ke IGD atau klinik terdekat","Jangan menunda — jangan tunggu sampai lebih parah","Jika ada nyeri dada atau pandangan kabur, segera hubungi 119"]},
+      {role:"user", text:"Tensi saya tadi diukur 172/104", time:"08:35"},
+      {role:"bot", text:"Tensi 172/104 sangat tinggi dan termasuk darurat!", time:"08:35", type:"bp", bpData:{sys:172, dia:104, cat:"Darurat!", clsSys:"danger", clsDia:"danger", clsCat:"danger"}},
+    ],
+    4: [
+      {role:"bot", text:"Halo, Bu Dewi! Senang bisa membantu. Ada kabar apa hari ini?", time:"14:00"},
+      {role:"user", text:"Alhamdulillah tensi saya sudah bagus bu. Diet DASH sudah 3 minggu", time:"14:02"},
+      {role:"bot", text:"Luar biasa, Bu Dewi! Konsistensi dalam diet DASH memang memberikan dampak nyata. Tensi 122/78 yang tercatat terakhir sudah masuk kategori normal!", time:"14:02", type:"bp", bpData:{sys:122, dia:78, cat:"Normal", clsSys:"ok", clsDia:"ok", clsCat:"ok"}},
+      {role:"bot", text:"Pertahankan pola ini:", time:"14:03", type:"list", items:["Lanjutkan konsumsi sayur, buah, dan produk susu rendah lemak","Tetap batasi garam dan makanan olahan","Olahraga 30 menit minimal 5x seminggu","Tetap cek tensi secara rutin meski sudah normal"]},
+    ],
+    5: [
+      {role:"bot", text:"Halo, Mas Rizky! Ada yang ingin ditanyakan?", time:"15:45"},
+      {role:"user", text:"Saya mau tanya, olahraga apa yang aman untuk penderita hipertensi?", time:"15:47"},
+      {role:"bot", text:"Pertanyaan bagus! Olahraga sangat dianjurkan untuk hipertensi. Berikut yang aman dan direkomendasikan:", time:"15:47", type:"list", items:["Jalan cepat 30 menit, 5x seminggu (paling mudah dan efektif)","Bersepeda santai atau bersepeda statis","Renang dengan intensitas sedang","Yoga atau tai chi untuk menurunkan stres"]},
+      {role:"bot", text:"Hindari: angkat beban berat, olahraga dengan manuver Valsalva, dan latihan intensitas sangat tinggi tanpa pengawasan. Pantau tensi sebelum dan setelah olahraga ya, Mas.", time:"15:48"},
+    ],
+  };
+
+  let activePatientId = 1;
+
+  const responses = {
+    "berapa tensi normal": { text:"Klasifikasi tekanan darah menurut ACC/AHA 2017:\n• Normal: &lt;120/&lt;80 mmHg\n• Elevasi: 120–129/&lt;80 mmHg\n• Hipertensi Stad.1: 130–139/80–89 mmHg\n• Hipertensi Stad.2: ≥140/≥90 mmHg\n• Krisis: &gt;180/&gt;120 mmHg", type:"text" },
+    "makanan": { text:"Makanan yang perlu dihindari:", type:"list", items:["Garam dan makanan asin tinggi (kecap, ikan asin, mie instan)","Daging olahan: sosis, kornet, nugget, bacon","Makanan berlemak jenuh: santan kental, gorengan berlebih","Kafein berlebihan dan minuman berenergi","Alkohol dalam bentuk apapun"] },
+    "kapan ke dokter": { text:"Segera ke dokter atau IGD jika:", type:"list", items:["Tensi ≥180/120 mmHg (krisis hipertensi)","Nyeri dada atau sesak napas mendadak","Sakit kepala sangat parah yang tiba-tiba","Penglihatan kabur atau tiba-tiba buram","Bicara pelo, wajah asimetris (gejala stroke)","Mati rasa atau kelemahan tangan/kaki mendadak"] },
+    "obat hipertensi": { text:"Golongan obat hipertensi yang umum diresepkan:", type:"list", items:["ACE Inhibitor: captopril, lisinopril, ramipril","ARB: candesartan, valsartan, losartan","CCB (Calcium Channel Blocker): amlodipin, nifedipin","Diuretik: HCT (hydrochlorothiazide), furosemid","Beta-blocker: bisoprolol, carvedilol"] },
+    "default": { text:"Terima kasih sudah bertanya. Untuk informasi yang lebih akurat terkait kondisi spesifik Anda, disarankan untuk berkonsultasi langsung dengan dokter atau tenaga medis profesional. Ada pertanyaan lain seputar hipertensi?", type:"text" }
+  };
+
+  function renderPatientList() {
+    const container = document.getElementById('patientList');
+    container.innerHTML = patients.map(p => `
+      <div class="patient-item ${p.id === activePatientId ? 'active' : ''}" onclick="switchPatient(${p.id})">
+        <div class="p-avatar" style="${p.color}">${p.initials}</div>
+        <div style="flex:1; min-width:0;">
+          <div class="p-name">${p.name}</div>
+          <div class="p-preview">${p.preview}</div>
+          <div style="margin-top:4px;"><span class="risk-badge risk-${p.risk}">${p.riskLabel}</span></div>
+        </div>
+        <div class="p-date">${p.date}</div>
+      </div>
+    `).join('');
+  }
+
+  function switchPatient(id) {
+    activePatientId = id;
+    renderPatientList();
+    renderMessages();
+    updatePanel();
+  }
+
+  function updatePanel() {
+    const p = patients.find(x => x.id === activePatientId);
+    document.getElementById('chatAvatar').textContent = p.initials;
+    document.getElementById('chatAvatar').style = p.color.replace('background','background');
+    document.getElementById('chatPatientName').textContent = p.name;
+    document.getElementById('panelAvatar').textContent = p.initials;
+    document.getElementById('panelAvatar').style.cssText = p.color;
+    document.getElementById('panelName').textContent = p.name;
+    document.getElementById('panelMeta').textContent = `${p.gender} · ${p.age} tahun`;
+    document.getElementById('panelBP').textContent = p.bp;
+    document.getElementById('panelPulse').textContent = p.pulse;
+    document.getElementById('panelBMI').textContent = p.bmi;
+    document.getElementById('panelSessions').textContent = p.sessions;
+    const rb = document.getElementById('panelRisk');
+    rb.textContent = p.riskLabel;
+    rb.className = `risk-badge risk-${p.risk}`;
+    renderBPHistory(p);
+  }
+
+  function renderBPHistory(p) {
+    document.getElementById('bpHistory').innerHTML = p.history.map(h => `
+      <div class="history-item">
+        <div class="history-date">${h.d}</div>
+        <div class="history-bp ${h.cls}">${h.bp}</div>
+        <div class="history-note">mmHg</div>
+      </div>
+    `).join('');
+  }
+
+  function renderMessages() {
+    const msgs = chatHistories[activePatientId] || [];
+    const container = document.getElementById('messages');
+    container.innerHTML = msgs.map(m => buildMsg(m)).join('');
+    container.scrollTop = container.scrollHeight;
+  }
+
+  function buildMsg(m) {
+    const isBot = m.role === 'bot';
+    let content = '';
+
+    if (m.type === 'bp' && m.bpData) {
+      const d = m.bpData;
+      content = `<div class="bubble">${m.text}</div>
+        <div class="info-card" style="${isBot ? '' : 'margin-left:0; margin-right:36px;'}">
+          <div class="info-card-title">Hasil Pengukuran Tekanan Darah</div>
+          <div class="bp-grid">
+            <div class="bp-cell ${d.clsSys}"><div class="bp-val">${d.sys}</div><div class="bp-lbl">Sistolik (mmHg)</div></div>
+            <div class="bp-cell ${d.clsDia}"><div class="bp-val">${d.dia}</div><div class="bp-lbl">Diastolik (mmHg)</div></div>
+            <div class="bp-cell ${d.clsCat}"><div class="bp-val" style="font-size:13px; line-height:1.2;">${d.cat}</div><div class="bp-lbl">Kategori</div></div>
+          </div>
+        </div>`;
+    } else if (m.type === 'list' && m.items) {
+      const listItems = m.items.map(i => `<li>${i}</li>`).join('');
+      content = `<div class="bubble">${m.text}<ul class="list-bubble" style="margin-top:8px;">${listItems}</ul></div>`;
+    } else {
+      content = `<div class="bubble">${m.text}</div>`;
+    }
+
+    const avatarHtml = isBot ? `<div class="bot-avatar">HC</div>` : '';
+    return `
+      <div class="msg-group ${m.role}">
+        <div class="msg-row">
+          ${avatarHtml}
+          <div>${content}</div>
+        </div>
+        <div class="msg-time">${m.time || ''}</div>
+      </div>`;
+  }
+
+  function addMsg(m) {
+    const container = document.getElementById('messages');
+    const div = document.createElement('div');
+    div.innerHTML = buildMsg(m);
+    const node = div.firstElementChild;
+    node.classList.add('msg-new');
+    container.appendChild(node);
+    container.scrollTop = container.scrollHeight;
+    if (!chatHistories[activePatientId]) chatHistories[activePatientId] = [];
+    chatHistories[activePatientId].push(m);
+  }
+
+  function showTyping() {
+    const container = document.getElementById('messages');
+    const div = document.createElement('div');
+    div.id = 'typingIndicator';
+    div.className = 'typing-indicator msg-new';
+    div.innerHTML = `<div class="bot-avatar">HC</div><div class="typing-dots"><span></span><span></span><span></span></div>`;
+    container.appendChild(div);
+    container.scrollTop = container.scrollHeight;
+  }
+
+  function removeTyping() {
+    const t = document.getElementById('typingIndicator');
+    if (t) t.remove();
+  }
+
+  function getTime() {
+    const now = new Date();
+    return now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
+  }
+
+  function getResponse(text) {
+    const lower = text.toLowerCase();
+    const bpMatch = text.match(/(\d{2,3})\s*[\/\-]\s*(\d{2,3})/);
+    if (bpMatch) {
+      const sys = parseInt(bpMatch[1]), dia = parseInt(bpMatch[2]);
+      let cat, clsCat;
+      if (sys >= 180 || dia >= 120) { cat = 'Krisis!'; clsCat = 'danger'; }
+      else if (sys >= 140 || dia >= 90) { cat = 'Stadium 2'; clsCat = 'warn'; }
+      else if (sys >= 130 || dia >= 80) { cat = 'Stadium 1'; clsCat = 'warn'; }
+      else if (sys >= 120) { cat = 'Elevasi'; clsCat = 'warn'; }
+      else { cat = 'Normal'; clsCat = 'ok'; }
+      const clsSys = sys >= 140 ? 'danger' : sys >= 120 ? 'warn' : 'ok';
+      const clsDia = dia >= 90 ? 'danger' : dia >= 80 ? 'warn' : 'ok';
+      return { text:`Tensi ${sys}/${dia} mmHg termasuk kategori <strong>${cat}</strong>.`, type:'bp', bpData:{sys, dia, cat, clsSys, clsDia, clsCat} };
+    }
+    for (const key of Object.keys(responses)) {
+      if (key !== 'default' && lower.includes(key.split(' ')[0])) return responses[key];
+    }
+    if (lower.includes('obat')) return responses['obat hipertensi'];
+    return responses['default'];
+  }
+
+  function sendMessage() {
+    const input = document.getElementById('msgInput');
+    const text = input.value.trim();
+    if (!text) return;
+    input.value = '';
+    input.style.height = '44px';
+    addMsg({ role:'user', text, time:getTime() });
+    showTyping();
+    setTimeout(() => {
+      removeTyping();
+      const res = getResponse(text);
+      addMsg({ role:'bot', ...res, time:getTime() });
+    }, 800 + Math.random() * 500);
+  }
+
+  function sendChip(el) {
+    document.getElementById('msgInput').value = el.textContent;
+    sendMessage();
+  }
+
+  function handleKey(e) {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+  }
+
+  function autoResize(el) {
+    el.style.height = '44px';
+    el.style.height = Math.min(el.scrollHeight, 100) + 'px';
+  }
+
+  function openApp() {
+    document.getElementById('landing').style.display = 'none';
+    document.getElementById('app').classList.add('active');
+    renderPatientList();
+    renderMessages();
+    updatePanel();
+  }
+
+  function backToLanding() {
+    document.getElementById('app').classList.remove('active');
+    document.getElementById('landing').style.display = 'flex';
+  }
+</script>
+</body>
+</html>
